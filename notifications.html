@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications - CampusSwap</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+        <h1>Notifications</h1>
+        <ul class="notifications-list">
+            <li th:each="note : ${notifications}" th:text="${note.message}"></li>
+        </ul>
+    </main>
+</body>
+</html>

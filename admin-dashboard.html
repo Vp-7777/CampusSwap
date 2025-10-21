@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - CampusSwap</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+        <h1>Admin Dashboard</h1>
+        <section>
+            <h2>Pending Listings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Seller</th>
+                        <th>Images</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${pendingProducts}">
+                        <td th:text="${product.title}"></td>
+                        <td th:text="${product.seller.name}"></td>
+                        <td>
+                            <img th:each="img : ${product.imageUrls}" th:src="${img}" alt="Product Image" width="50">
+                        </td>
+                        <td>
+                            <form th:action="@{'/admin/products/' + ${product.id} + '/approve'}" method="post">
+                                <button type="submit">Approve</button>
+                            </form>
+                            <form th:action="@{'/admin/products/' + ${product.id} + '/reject'}" method="post">
+                                <input type="text" name="reason" placeholder="Rejection reason" required>
+                                <button type="submit">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Manage Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Verified</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.verified}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td>
+                            <form th:action="@{'/admin/users/' + ${user.id} + '/ban'}" method="post">
+                                <button type="submit">Ban</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

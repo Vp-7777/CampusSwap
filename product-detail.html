@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.title}">Product Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+        <div class="product-detail">
+            <div class="carousel">
+                <img th:each="img : ${product.imageUrls}" th:src="${img}" alt="Product Image">
+            </div>
+            <div class="info">
+                <h1 th:text="${product.title}"></h1>
+                <span th:if="${product.seller.verified}" class="badge verified">Verified Seller</span>
+                <p th:text="${product.description}"></p>
+                <span class="price" th:text="${product.price}"></span>
+                <span class="status" th:text="${product.status}"></span>
+                <span th:if="${product.location}" class="location" th:text="${product.location}"></span>
+                <form th:action="@{'/products/' + ${product.id} + '/offer'}" method="post">
+                    <label>Offer your product (ID):</label>
+                    <input type="text" name="offeredProductId" required>
+                    <button type="submit">Propose Exchange</button>
+                </form>
+                <a th:if="${isSeller}" th:href="@{'/products/' + ${product.id} + '/sold'}">Mark as Sold</a>
+            </div>
+        </div>
+        <section id="chatSection">
+            <h2>Chat with Seller</h2>
+            <div id="chatMessages"></div>
+            <form id="chatForm">
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+    <script src="/js/app.js"></script>
+</body>
+</html>

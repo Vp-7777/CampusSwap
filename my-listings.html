@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Listings - CampusSwap</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+        <h1>My Listings</h1>
+        <div th:each="product : ${myProducts}" class="product-card">
+            <div class="carousel">
+                <img th:src="${product.imageUrls[0]}" alt="Product Image">
+            </div>
+            <div class="product-info">
+                <h2 th:text="${product.title}"></h2>
+                <span th:if="${product.status == 'PENDING'}" class="badge pending">Pending Approval</span>
+                <span th:if="${product.status == 'REJECTED'}" class="badge rejected">Rejected</span>
+                <span th:if="${product.status == 'ACTIVE'}" class="badge active">Active</span>
+                <span th:if="${product.status == 'SOLD'}" class="badge sold">Sold</span>
+                <p th:text="${product.description}"></p>
+                <span class="price" th:text="${product.price}"></span>
+                <a th:href="@{'/products/' + ${product.id}}">View Details</a>
+                <span th:if="${product.rejectionReason}" class="rejection-reason">Reason: <span th:text="${product.rejectionReason}"></span></span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

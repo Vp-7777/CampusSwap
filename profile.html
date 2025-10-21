@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - CampusSwap</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+        <h1>My Profile</h1>
+        <div>
+            <p>Name: <span th:text="${user.name}"></span></p>
+            <p>Email: <span th:text="${user.email}"></span></p>
+            <p>Registration No: <span th:text="${user.regNo}"></span></p>
+            <p>Verified: <span th:text="${user.verified}"></span></p>
+            <p>Verification Status: <span th:text="${user.verificationStatus}"></span></p>
+        </div>
+        <section>
+            <h2>Student Verification</h2>
+            <form th:action="@{/profile/verify}" method="post" enctype="multipart/form-data">
+                <label>Upload Student ID (jpg/png):</label>
+                <input type="file" name="studentIdImage" accept="image/png,image/jpeg" required>
+                <button type="submit">Submit for Verification</button>
+            </form>
+            <div th:if="${verificationError}" class="error" th:text="${verificationError}"></div>
+        </section>
+    </main>
+</body>
+</html>

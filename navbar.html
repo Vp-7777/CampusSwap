@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="navbar">
+        <nav class="navbar">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/products/add}">Add Listing</a>
+            <a th:href="@{/my-listings}">My Listings</a>
+            <a th:href="@{/notifications}">Notifications</a>
+            <a th:href="@{/profile}">Profile</a>
+            <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/admin}">Admin</a>
+            <a th:href="@{/logout}">Logout</a>
+        </nav>
+    </div>
+</body>
+</html>

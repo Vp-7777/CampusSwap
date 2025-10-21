@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product - CampusSwap</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+        <h1>Add New Product</h1>
+        <form th:action="@{/products/add}" method="post" enctype="multipart/form-data">
+            <label>Title:</label>
+            <input type="text" name="title" required>
+            <label>Description:</label>
+            <textarea name="description" required></textarea>
+            <label>Category:</label>
+            <select name="category" required>
+                <option value="BOOKS">Books</option>
+                <option value="ELECTRONICS">Electronics</option>
+                <option value="FURNITURE">Furniture</option>
+                <option value="CLOTHING">Clothing</option>
+                <option value="OTHER">Other</option>
+            </select>
+            <label>Condition:</label>
+            <input type="text" name="condition" required>
+            <label>Price (leave blank for exchange):</label>
+            <input type="number" name="price" min="0" step="0.01">
+            <label>Location (optional):</label>
+            <input type="text" name="location">
+            <label>Images (up to 5, jpg/png):</label>
+            <input type="file" name="images" accept="image/png,image/jpeg" multiple required>
+            <button type="submit">Add Product</button>
+        </form>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+    </main>
+</body>
+</html>
